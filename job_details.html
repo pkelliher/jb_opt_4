@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="pageTitle">Job Details - Star Wars Sandbox</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .job-details {
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="job-details" id="jobDetails">
+      <!-- Job details will be displayed here -->
+    </div>
+
+    <div id="grnhse_app"></div>
+
+    <!-- Add the following line to include the <script> tag →
+<!-- Add your demo account script below -->
+    <script src="https://boards.greenhouse.io/embed/job_board/js?for=kellihercapital"></script>
+
+    <script>
+      // Get the job ID from the URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const jobId = urlParams.get("gh_jid");
+
+      // Make an API request to fetch the job details
+      // Replace the job board token below
+      fetch(
+        `https://boards-api.greenhouse.io/v1/boards/kellihercapital/jobs/${jobId}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // Update the page title with the job title
+          const pageTitleElement = document.getElementById("pageTitle");
+          pageTitleElement.textContent = `${data.title} - Kelliher Capital`;
+
+          // Display the job location and details in the designated element
+          const jobDetailsElement = document.getElementById("jobDetails");
+          jobDetailsElement.innerHTML = `
+<h1>${data.title}</h1>
+<h3>Location: ${data.location.name}</h3>
+<div>${data.content}</div>
+`;
+        })
+        .catch((error) => {
+          console.error("Error fetching job details:", error);
+        });
+    </script>
+  </body>
+</html>
