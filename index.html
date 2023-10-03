@@ -62,15 +62,12 @@
             const jobElement = document.createElement("div");
             jobElement.classList.add("job");
             jobElement.innerHTML = `
-      <h3>${job.title}</h3>
-      <p>Location: ${job.location.name}</p>
-      <p><a href="${job.absolute_url}" target="_blank">Apply Now</a></p>
-      `;
+<h3>${job.title}</h3>
+<p>Location: ${job.location.name}</p>
+<p><a href="${job.absolute_url}" target="_blank">Apply Now</a></p>
+`;
             jobBoardElement.appendChild(jobElement);
           });
-
-          // Load the job board after populating the job elements
-          Grnhse.Iframe.load();
         })
         .catch((error) => {
           console.error("Error fetching job board data:", error);
